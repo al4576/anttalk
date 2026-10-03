@@ -171,7 +171,6 @@ export default function App() {
               <article className="message-card" key={message.id}>
                 <div className="message-meta">
                   <span>{message.sender || "someone"}</span>
-                  <span>·</span>
                 </div>
                 <AntMessage
                   text={message.text}
