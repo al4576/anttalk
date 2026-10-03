@@ -127,17 +127,15 @@ export default function App() {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="alice"
                 autoComplete="off"
               />
             </label>
 
             <label>
-              secret anthill
+              anthill
               <input
                 value={room}
                 onChange={(e) => setRoom(e.target.value)}
-                placeholder="a secret word you both know"
                 autoComplete="off"
               />
             </label>
@@ -186,7 +184,7 @@ export default function App() {
                   onClick={() => eatMessage(message.id)}
                   disabled={eatingId !== null}
                 >
-                  {eatingId === message.id ? "the anteater is coming…" : "send the anteater →"}
+                  {eatingId === message.id ? "MMMM" : "send the anteater →"}
                 </button>
               </article>
             ))
