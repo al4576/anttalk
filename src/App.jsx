@@ -12,19 +12,16 @@ import {
 import { db, firebaseConfigStatus } from "./firebase";
 import AntMessage from "./AntMessage";
 
-const ROOM_KEY = "ant-mail-room";
-const NAME_KEY = "ant-mail-name";
-
 function makeId() {
   return crypto.randomUUID().slice(0, 8);
 }
 
 export default function App() {
-  const [room, setRoom] = useState(() => localStorage.getItem(ROOM_KEY) || "");
-  const [name, setName] = useState(() => localStorage.getItem(NAME_KEY) || "");
+  const [room, setRoom] = useState("");
+  const [name, setName] = useState("");
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([]);
-  const [joined, setJoined] = useState(Boolean(localStorage.getItem(ROOM_KEY)));
+  const [joined, setJoined] = useState(false);
   const [eatingId, setEatingId] = useState(null);
   const [status, setStatus] = useState("");
 
@@ -67,18 +64,19 @@ export default function App() {
     const cleanRoom = room.trim().toLowerCase();
     const cleanName = name.trim() || "someone";
     if (!cleanRoom) return;
-    localStorage.setItem(ROOM_KEY, cleanRoom);
-    localStorage.setItem(NAME_KEY, cleanName);
     setRoom(cleanRoom);
     setName(cleanName);
     setJoined(true);
   }
 
   function leaveRoom() {
-    localStorage.removeItem(ROOM_KEY);
-    localStorage.removeItem(NAME_KEY);
     setJoined(false);
+    setRoom("");
+    setName("");
+    setDraft("");
     setMessages([]);
+    setEatingId(null);
+    setStatus("");
   }
 
   async function sendMessage(e) {
